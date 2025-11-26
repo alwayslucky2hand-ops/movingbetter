@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>把家搬好好 - 費用試算</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", sans-serif; padding: 20px; background-color: #f4f4f9; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h2 { color: #2c3e50; text-align: center; }
+        button { 
+            display: block; width: 100%; padding: 15px; margin-top: 20px;
+            font-size: 18px; color: white; background-color: #28a745; 
+            border: none; border-radius: 5px; cursor: pointer; 
+        }
+        button:hover { background-color: #218838; }
+        #result { margin-top: 20px; padding: 15px; border: 1px solid #ddd; background: #fff; min-height: 50px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>搬家費用試算系統</h2>
+        <p>這是一個測試網頁，用來測試 GitHub 與 GAS 的連線。</p>
+        
+        <button id="btn">點擊測試連線</button>
+        
+        <div id="result">準備就緒...</div>
+    </div>
+
+    <script>
+        // ⚠️ 重要：之後要回來把下面這行網址換成您的 GAS 網址
+        const gasUrl = "https://script.google.com/macros/s/您的-GAS-ID/exec";
+
+        document.getElementById('btn').addEventListener('click', () => {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerText = "正在呼叫 GAS 資料中...";
+
+            fetch(gasUrl)
+                .then(response => response.json())
+                .then(data => {
+                    resultDiv.innerHTML = "<strong>成功連線！</strong><br>" + JSON.stringify(data);
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = "<span style='color:red'>連線失敗，請檢查 GAS 網址與設定。</span>";
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+
+</body>
+</html>
